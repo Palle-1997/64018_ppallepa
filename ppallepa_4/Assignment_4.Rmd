@@ -1,0 +1,40 @@
+---
+title: "QMM_Assignment 2"
+author: '"Pallavi"'
+date: "2023-09-20"
+output:
+  word_document: default
+  html_document: default
+---
+
+#calling the "lpsolve" library and declaring the objective function as "f.obj"#library
+#objective function
+```{r}
+library(lpSolve)
+f.obj<-c(420,420,420,360,360,360,300,300,300)
+f.con<-matrix(c(1,0,0,1,0,0,1,0,0,
+                0,1,0,0,1,0,0,1,0,
+                0,0,1,0,0,1,0,0,1,
+                20,0,0,15,0,0,12,0,0,
+                0,20,0,0,15,0,0,12,0,
+                0,0,20,0,0,15,0,0,12,
+                1,1,1,0,0,0,0,0,0,
+                0,0,0,1,1,1,0,0,0,
+                0,0,0,0,0,0,1,1,1,
+                900,-750,0,900,-750,0,900,-750,0,
+                0,450,-900,0,450,-900,0,450,-900,
+                450,0,-750,450,0,-750,450,0,-750),ncol=9, byrow=TRUE)
+f.con
+
+#Declaring the direction as "f.dir"
+f.dir<-c("<=","<=","<=","<=","<=","<=","<=","<=","<=","=","=","=")
+
+#Declaring the right hand side constants as "f.rhs"
+f.rhs<-c(750,900,450,13000,12000,5000,900,1200,750,0,0,0)
+#Calling the LP function to solve the problem based on objective function to maximize the profit using "int. vec" to get exact values
+f.sol<- lp("max",f.obj,f.con,f.dir,f.rhs,int.vec = 1:9)
+f.sol$solution
+f.sol
+
+```
+
